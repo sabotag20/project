@@ -1,46 +1,74 @@
 "use strict";
 
-//alert('Hello');
+let numberOfFilms;
 
-const result = confirm("Are you here?");
-console.log(result);
+function start() {
+   numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
-//const answer = prompt("Вам есть 18?", "18");
-//console.log(answer);
+   while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+      numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+   }
+}
 
-const answers = [];
+start();
 
-answers[0] = prompt('Как ваше имя?', '');
-answers[1] = prompt('Как ваша фамилия?', '');
-answers[2] = prompt('Сколько вам лет?', '');
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
 
-//document.write(answers); или консоль лог
+        
+      function rememberMyFilms() {
+         for (let i = 0; i < 2; i++) {
+            const a = prompt('Один из последних просмотренніх фильмов?', ''),
+                  b = prompt('На сколько оцените его?', ''); 
+        
+                  if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+                    personalMovieDB.movies[a] = b;
+                    console.log('done');
+                 } else {
+                    console.log('error');
+                    i--;
+                 }
+                
+                }
 
-console.log(typeof(answers));
+        }
 
-const category = 'toys';
+rememberMyFilms();
 
-//console.log('https://someurl.com/' + category +'/' + '4') если через + писать будет добавлять значение,выходит https://someurl.com/toys. 
-console.log(`https://someurl.com/${category}/5`); //для ИНТЕРПОЛЯЦИИ брать в такие кавычки ` и после ссылки ставть знак доллара и фигурные скобки в них переменная,затем через слеш
+          
+         function detectPersonalLevel() {
+            if (personalMovieDB.count < 10) {
+               console.log("Просмотрено довольно мало фильмов");
+            } else if (personalMovieDB.count >= 10 && personalMovieDB < 30) {
+               console.log("Вы классический зритель");
+            } else if  (personalMovieDB.count >= 30) {
+               console.log("Вы киноман");
+            } else {
+               console.log("Произошла ошибка");
+            }            
+         }
+
+         detectPersonalLevel();
 
 
-const user ="Ivan";
+function showMyDB (hidden) {
+   if(!hidden) {
+      console.log(personalMovieDB);
+   }
+}
 
-alert(`Привет, ${user}`);
+showMyDB(personalMovieDB.privat);
 
-let incr = 10,
-    decr = 10;
+function writeYourGenres() {
+   for (let i = 1; i <= 3; i++) {
+      const genre = prompt(`Ваш любимый жанр под номером ${i}`);
+      personalMovieDB.genres[i - 1] = genre;
+   }
+}
 
-
-    //префиксные
-    //++incr;
-   // --decr;
-
-    //постфиксные
-    //incr++;
-    //decr--;
-
-    console.log(incr);
-    console.log(decr);
-
-    console.log(5%2);
+writeYourGenres();
